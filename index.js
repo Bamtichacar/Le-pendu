@@ -89,18 +89,41 @@ while ((mot_trouve.join("") != mot_a_trouver) && (erreurs_commises < erreurs_aut
 // affichage, decompte, et images du pendu suite aux erreurs     
     } else {
         erreurs_commises += 1;
-        console.log(`Erreur : ${erreurs_commises}. Il reste ${erreurs_autorisees - erreurs_commises} essais.`);
+        // console log commenté car en relisant ce n était pas demandé
+        //console.log(`Erreur : ${erreurs_commises}. Il reste ${erreurs_autorisees - erreurs_commises} essais.`);
         console.log(Tableau_d_images[erreurs_commises].src);
         // OU en modifiant html :
         //document.getElementById('imageDuPendu').src = Tableau_d_images[erreurs_commises].src;
     }
 }
-// affichage des resultats perdu ou gagné
+// affichage des resultats perdu ou gagné - modification des anciennes lignes - ajout précision 
+//       du nombre d'erreurs qui étaient autorisées
 if (mot_trouve.join("") === mot_a_trouver) {
-    console.log("Félicitation vous avez gagné !");
+    console.log(`Félicitation vous avez gagné !
+Il vous était autorisé ${erreurs_autorisees} erreurs`);
 } else if (erreurs_commises === erreurs_autorisees) {
-    console.log("Vous avez perdu !")
+    console.log(`Aïe Vous avez perdu !
+Il vous était autorisé ${erreurs_autorisees} erreurs`)
 } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* 
