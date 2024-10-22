@@ -57,34 +57,28 @@ console.log(mot_trouve.join(" ")); // Affiche le mot sous forme de tirets
  */
 
 
-// Construction de la potence : instruction "on trace 1 trait de plus sur la potence"
 
 
-// 7/ Deroulement du jeu
-//   a/ tant que mot trouvé est diff de mot à trouver ET QUE erreurs commises < err autorisees
-//     demander au joueur une lettre
-//     Dans la boucle tant que, l'une des instructions est on ajoute dans mot_trouve la lettre là où elle apparait
-//     pour ce faire il faudra avoir recours a une fct lettres_placees ayant pour parametre un mot mot_complet et 
-//     une chaine de caracteres lettres_trouvees : par ex lettres_placees("elevage", "ela") renvoie ele-a-e
-//   b/  SI lettre est dans le mot a trouver alors ajouter dans mot trouvé la lettre à sa place
-//   c/  SINON erreurs commises +1  ET on trace un trait sur la potence
-//   d/  FIN SI on affiche le mot trouve OU si potence affichée
-//   e/  FIN TANT QUE :
-           //SI mot trouve est egal a mot a trouver
-               // ALORS on ecrit Gagné !
-               // SINON on ecrit Perdu !
-//         FIN SI
+console.log(`Mot à trouver : ${mot_a_trouver}`);     // console.log à commenter qd fini de verifier si tout est ok
 
 
+//ATTENTION mot_a_trouver EST UNE CHAINE !!!!!!! il va falloir transformer mot_trouve qui est un TABLEAU 
+//en chaine pour les comparaisons
 
 
-//ATTENTION mot_a_trouver EST UNE CHAINE !!!!!!! il va falloir transformer mot_trouve qui est un TABLEAU en chaine pour les comparaisons
+let doublon = []; // pour stocker les doublons des lettres proposées
 
-console.log(`Mot à trouver : ${mot_a_trouver}`);
-
-// MON CODE REMANIE
 while ((mot_trouve.join("") != mot_a_trouver) && (erreurs_commises < erreurs_autorisees)) {
-    const lettre = window.prompt("Veuillez saisir une lettre.", "");
+    let lettre = window.prompt("Veuillez saisir une lettre.", "").toLowerCase(); // pour que tout soit en minuscules
+
+    // on invite a rejouer quand la lettre a déjà été proposée
+    if (doublon.indexOf(lettre) !== -1) {
+        lettre = window.prompt("Vous avez déjà saisi cette lettre, merci d'en saisir une autre", "").toLowerCase();
+        } else {
+            doublon.push(lettre);
+        }
+
+// mise en place des lettres trouvees
     if (mot_a_trouver.includes(lettre)) {
         let index = mot_a_trouver.indexOf(lettre);
         while (index !== -1) {
@@ -92,21 +86,21 @@ while ((mot_trouve.join("") != mot_a_trouver) && (erreurs_commises < erreurs_aut
             index = mot_a_trouver.indexOf(lettre, index + 1);
         }
         console.log(mot_trouve.join(" ")) // affiche en tant que mot,sans ça l'affichage serait sous forme de tableau
+// affichage, decompte, et images du pendu suite aux erreurs     
     } else {
         erreurs_commises += 1;
         console.log(`Erreur : ${erreurs_commises}. Il reste ${erreurs_autorisees - erreurs_commises} essais.`);
         console.log(Tableau_d_images[erreurs_commises].src);
-        // OU 
+        // OU en modifiant html :
         //document.getElementById('imageDuPendu').src = Tableau_d_images[erreurs_commises].src;
     }
-
 }
-
+// affichage des resultats perdu ou gagné
 if (mot_trouve.join("") === mot_a_trouver) {
     console.log("Félicitation vous avez gagné !");
 } else if (erreurs_commises === erreurs_autorisees) {
     console.log("Vous avez perdu !")
-}
+} 
 
 
 /* 
@@ -127,110 +121,6 @@ Solution : Pour comparer les deux tableaux, joindre mot_trouve en une chaîne et
 if (mot_trouve.join('') === mot_a_trouver) {
     console.log("Félicitations, vous avez gagné !");}
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
