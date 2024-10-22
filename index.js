@@ -57,32 +57,11 @@ console.log(mot_trouve.join(" ")); // Affiche le mot sous forme de tirets
  */
 
 
-// Construction de la potence : instruction "on trace 1 trait de plus sur la potence"
-
-
-// 7/ Deroulement du jeu
-//   a/ tant que mot trouvé est diff de mot à trouver ET QUE erreurs commises < err autorisees
-//     demander au joueur une lettre
-//     Dans la boucle tant que, l'une des instructions est on ajoute dans mot_trouve la lettre là où elle apparait
-//     pour ce faire il faudra avoir recours a une fct lettres_placees ayant pour parametre un mot mot_complet et 
-//     une chaine de caracteres lettres_trouvees : par ex lettres_placees("elevage", "ela") renvoie ele-a-e
-//   b/  SI lettre est dans le mot a trouver alors ajouter dans mot trouvé la lettre à sa place
-//   c/  SINON erreurs commises +1  ET on trace un trait sur la potence
-//   d/  FIN SI on affiche le mot trouve OU si potence affichée
-//   e/  FIN TANT QUE :
-           //SI mot trouve est egal a mot a trouver
-               // ALORS on ecrit Gagné !
-               // SINON on ecrit Perdu !
-//         FIN SI
-
-
-
-
 //ATTENTION mot_a_trouver EST UNE CHAINE !!!!!!! il va falloir transformer mot_trouve qui est un TABLEAU en chaine pour les comparaisons
 
-console.log(`Mot à trouver : ${mot_a_trouver}`);
+// pour verif afficher 
+//console.log(`Mot à trouver : ${mot_a_trouver}`);
 
-// MON CODE REMANIE
 while ((mot_trouve.join("") != mot_a_trouver) && (erreurs_commises < erreurs_autorisees)) {
     const lettre = window.prompt("Veuillez saisir une lettre.", "");
     if (mot_a_trouver.includes(lettre)) {
@@ -107,29 +86,6 @@ if (mot_trouve.join("") === mot_a_trouver) {
 } else if (erreurs_commises === erreurs_autorisees) {
     console.log("Vous avez perdu !")
 }
-
-
-/* 
-Cette ligne ne fonctionne pas : 
-if (mot_trouve === mot_a_trouver) {
-    console.log("Félicitation vous avez gagné !")}
- 
-    voici pourquoi 
-
-Comparaison entre deux tableaux (mot_trouve et mot_a_trouver) : En JavaScript, comparer deux tableaux 
-avec == ou === ne fonctionne pas comme pour les variables simples. Même si les deux tableaux ont les mêmes 
-valeurs, ils ne sont pas considérés comme identiques, car JavaScript compare les références, pas les valeurs 
-des éléments.
-
-Solution : Pour comparer les deux tableaux, joindre mot_trouve en une chaîne et la comparer avec
- mot_a_trouver. Par exemple :
-
-if (mot_trouve.join('') === mot_a_trouver) {
-    console.log("Félicitations, vous avez gagné !");}
- */
-
-
-
 
 
 
