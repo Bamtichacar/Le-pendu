@@ -30,7 +30,6 @@ Tableau_d_images[7] = new Image();
 Tableau_d_images[7].src = './images/pendu0.png';
 
 
-
 // 2/ Choix du mot à faire deviner - Mot à trouver
 const mot_a_trouver = wordsArray[Math.floor(Math.random()*(wordsArray.length))];
 
