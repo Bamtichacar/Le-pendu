@@ -98,28 +98,211 @@ while ((mot_trouve.join("") != mot_a_trouver) && (erreurs_commises < erreurs_aut
 }
 // affichage des resultats perdu ou gagné - modification des anciennes lignes - ajout précision 
 //       du nombre d'erreurs qui étaient autorisées
-if (mot_trouve.join("") === mot_a_trouver) {
-    console.log(`Félicitation vous avez gagné !
+
+
+let nbErreurParPartie = [];
+
+// Fonction pour récupérer les erreurs stockées
+function recupererErreurs() {
+    let erreursStockees = window.sessionStorage.getItem("nbErreurParPartie");
+    if (erreursStockees) {
+        nbErreurParPartie = erreursStockees.split(',').map(Number);
+    }
+}
+
+// Fonction pour mettre à jour les erreurs stockées
+function mettreAJourErreurs(erreurs_commises) {
+    nbErreurParPartie.push(erreurs_commises);
+    window.sessionStorage.setItem("nbErreurParPartie", nbErreurParPartie.join(','));
+}
+
+function finDeJeu(erreurs_commises) {
+    if (mot_trouve.join("") === mot_a_trouver) {
+        console.log(`Félicitation vous avez gagné !
 Il vous était autorisé ${erreurs_autorisees} erreurs`);
-} else if (erreurs_commises === erreurs_autorisees) {
-    console.log(`Aïe Vous avez perdu !
+        mettreAJourErreurs(erreurs_commises);
+
+    } else if (erreurs_commises === erreurs_autorisees) {
+        console.log(`Aïe Vous avez perdu !
+Il vous était autorisé ${erreurs_autorisees} erreurs`);
+        mettreAJourErreurs(erreurs_commises);
+    }
+
+    // Récupérer les erreurs totales depuis sessionStorage
+    let Tot_erreurs = window.sessionStorage.getItem("nbTotErreur");
+    Tot_erreurs = Tot_erreurs ? parseInt(Tot_erreurs) : 0;
+
+    // Ajouter les erreurs de la partie actuelle
+    Tot_erreurs += erreurs_commises;
+
+    // Mettre à jour sessionStorage avec les nouvelles erreurs totales
+    window.sessionStorage.setItem("nbTotErreur", Tot_erreurs);
+
+    console.log("Erreur de la partie en cours : " + erreurs_commises);
+    console.log("Total erreurs : " + Tot_erreurs);
+    console.log("Nombre d'erreurs par partie : " + nbErreurParPartie);
+}
+
+// Récupérer les erreurs stockées au chargement de la page
+recupererErreurs();
+
+// Exemple d'appel de la fonction avec une valeur pour erreurs_commises
+finDeJeu(erreurs_commises);
+
+
+
+
+function rejouer () {
+    if (window.confirm("Souhaitez-vous rejouer ?")) {
+        location.reload();
+        //nbErreurParPartie += visualisationDesErreurs;
+    }
+}
+
+rejouer();
+
+
+
+
+
+
+//----------------------------------------------------------------------
+
+
+
+
+
+
+
+/* let nbErreurParPartie = [];
+
+function finDeJeu (erreurs_commises) {
+    if (mot_trouve.join("") === mot_a_trouver) {
+        console.log(`Félicitation vous avez gagné !
+Il vous était autorisé ${erreurs_autorisees} erreurs`);
+        nbErreurParPartie.push(erreurs_commises);
+
+    } else if (erreurs_commises === erreurs_autorisees) {
+        console.log(`Aïe Vous avez perdu !
 Il vous était autorisé ${erreurs_autorisees} erreurs`)
-} 
+        nbErreurParPartie.push(erreurs_commises);
+    }  */
+/*     window.sessionStorage.setItem("listingDesErreurs", nbErreurParPartie);
+    let visualisationDesErreurs = window.sessionStorage.getItem("listingDesErreurs");
+    console.log("erreur de la partie en cours : " + erreurs_commises);
+    console.log("Tot erreurs : "+ visualisationDesErreurs);
+    console.log("nb erreur par partie : " + nbErreurParPartie);
+ */     
+    /* let Tot_erreurs = window.sessionStorage.getItem("nbTotErreur");
+    Tot_erreurs = Tot_erreurs ? parseInt(Tot_erreurs) : 0;
+    Tot_erreurs += erreurs_commises + Tot_erreurs;
+    //Tot_erreurs = erreurs_commises + Tot_erreurs;
+    window.sessionStorage.setItem("nbTotErreur", Tot_erreurs);
+    window.sessionStorage.getItem(Tot_erreurs)
+    console.log("erreur de la partie en cours : " + erreurs_commises);
+    console.log("Tot erreurs : "+ Tot_erreurs);
+    console.log("nb erreur par partie : " + nbErreurParPartie);
+ */
+
+    // Récupérer les erreurs totales depuis sessionStorage
+    /* let Tot_erreurs = window.sessionStorage.getItem("nbTotErreur");
+    Tot_erreurs = Tot_erreurs ? parseInt(Tot_erreurs) : 0;
+
+    // Ajouter les erreurs de la partie actuelle
+    Tot_erreurs += erreurs_commises;
+
+    // Mettre à jour sessionStorage avec les nouvelles erreurs totales
+    window.sessionStorage.setItem("nbTotErreur", Tot_erreurs);
+
+    console.log("Erreur de la partie en cours : " + erreurs_commises);
+    console.log("Total erreurs : " + Tot_erreurs);
+    console.log("Nombre d'erreurs par partie : " + nbErreurParPartie);
+}
+     
+
+finDeJeu(erreurs_commises);
+ */
 
 
 
 
 
+/* window.sessionStorage.setItem("listingDesErreurs", nbErreurParPartie);
+let visualisationDesErreurs = window.sessionStorage.getItem("listingDesErreurs");
+console.log("erreur de la partie en cours" + erreurs_commises);
+console.log("Tot erreurs"+ visualisationDesErreurs);
+console.log("nb erreur par partie" + nbErreurParPartie);
+ */
 
 
 
+/* let cumul_intermediaire = 0
+cumul_intermediaire += erreurs_commises;
+//instant n=0
+window.sessionStorage.setItem("cumul_des_erreurs", erreurs_commises);
+let visualisationstock = window.sessionStorage.getItem("cumul_des_erreurs");
+console.log("recup_cumul"+ visualisationstock);
+
+//instant n+1
+window.sessionStorage.setItem("cumul_des_erreurs2", cumul_intermediaire);
+let n2 = window.sessionStorage.getItem("cumul_des_erreurs2");
+console.log("addition"+n2);
+ */
 
 
 
+// ou alors changer et mettre des cles partie 1, 2, etc
+
+/* function rejouer () {
+    if (window.confirm("Souhaitez-vous rejouer ?")) {
+        location.reload();
+        //nbErreurParPartie += visualisationDesErreurs;
+    }
+}
+
+rejouer();
+
+ */
 
 
+/* let item = get item
+st item de nvx
+
+ */
 
 
+//window.sessionStorage.setItem("key", "value");
+
+/* window.sessionStorage.setItem("cumul_des_erreurs", erreurs_commises);
+let cumul = sessionStorage.getItem("cumul_des_erreurs");
+console.log(cumul);
+ */
+//voir avec localStorage ou sessionStorage
+
+/* function remplissageStockage() {
+    localStorage.setItem("bgcolor", "red");
+    localStorage.setItem("font", "Helvetica");
+    localStorage.setItem("image", "myCat.png");
+  }
+  
+
+// Récupération du champ à enregistrer
+var champ = document.getElementById("champ");
+
+// Vérification de l'existence d'une donnée enregistrée auparavant
+// (ce ne sera le cas que si la page a été rafraîchie)
+if (sessionStorage.getItem("autosave")) {
+  // Restauration du contenu du champ
+  champ.value = sessionStorage.getItem("autosave");
+}
+
+// Écoute des changements de valeur du champ
+champ.addEventListener("change", function () {
+  // Enregistrement de la saisie utilisateur dans le stockage de session
+  sessionStorage.setItem("autosave", champ.value);
+});
+
+ */
 
 
 
